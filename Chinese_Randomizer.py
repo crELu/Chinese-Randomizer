@@ -1,4 +1,5 @@
 from random import sample
+import os
 
 character_tones = ['ā', 'ó', 'ě', 'ì', 'u']
 
@@ -32,6 +33,7 @@ with open('Vocabulary.txt', 'r', encoding='utf8') as f:
     max_lesson = lesson - 1
 
 if __name__ == '__main__':
+    os.system('chcp 936')
     EXIT = 'e'
     command = None
     lesson_range = f'{min_lesson}-{max_lesson}' if min_lesson != max_lesson else f'{min_lesson}'
