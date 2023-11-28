@@ -63,9 +63,9 @@ if __name__ == '__main__':
         print('====================================\nAnswers\n====================================')
         for i in order:
             input()
-            print(f'======\n{i}: ', end='')
+            print(f'====================================\n\n{i}: ', end='')
             i -= 1
             print(lessons[lesson][CHARACTERS][i])
             print(lessons[lesson][TONES][i])
-        print('\n======')
+        print('\n====================================')
         command = None
