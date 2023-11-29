@@ -2,8 +2,6 @@ from random import sample
 import os
 import csv
 
-character_tones = ['ā', 'ó', 'ě', 'ì', 'u']
-
 CHARACTERS = 0
 TRADITIONAL_CHARS = 1
 TONES = 2
