@@ -18,7 +18,7 @@ CSV_DEF = 'Definition'
 
 def read_lesson(lesson_num):
     try:
-        with open(f'Lesson_{lesson_num}_Vocab.csv', 'r', encoding='utf8') as f:
+        with open(f'Vocab/Lesson_{lesson_num}_Vocab.csv', 'r', encoding='utf8') as f:
             reader = csv.DictReader(f, delimiter=',')
             characters = []
             traditional_chars = []
