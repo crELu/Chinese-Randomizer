@@ -15,8 +15,12 @@ CSV_TRAD = 'Trad.'
 CSV_PINYIN = 'Pinyin'
 CSV_DEF = 'Definition'
 
+EXIT = 'e'
+
 
 def read_lesson(lesson_num):
+    if lesson_num in lessons_cache:
+        return lessons_cache[lesson_num]
     try:
         with open(f'Vocab/Lesson_{lesson_num}_Vocab.csv', 'r', encoding='utf8') as f:
             reader = csv.DictReader(f, delimiter=',')
@@ -29,16 +33,18 @@ def read_lesson(lesson_num):
                 traditional_chars.append(row[CSV_TRAD])
                 tones.append(row[CSV_PINYIN])
                 definitions.append(row[CSV_DEF])
-            return characters, traditional_chars, tones, definitions
+            lessons_cache[lesson_num] = (characters, traditional_chars, tones, definitions)
+            return lessons_cache[lesson_num]
     except FileNotFoundError:
         return
 
 
 if __name__ == '__main__':
+    # Set Windows terminal to be able to display Chinese Characters
     os.system('chcp 936')
-    EXIT = 'e'
     command = None
     lesson = None
+    lessons_cache = {}
     while command != EXIT:
         while command is None:
             command = input(f'Enter a lesson number (>=2) or \'e\' to exit: ')
