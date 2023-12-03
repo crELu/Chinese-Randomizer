@@ -14,6 +14,33 @@ CSV_PINYIN = 'Pinyin'
 CSV_DEF = 'Definition'
 
 EXIT = 'e'
+COMBINE = 'c'
+
+lessons_cache = {}
+
+
+def combine():
+    directory_name = 'Vocab'
+    combined_name = f'{directory_name}/Lesson_Combined_Vocab.csv'
+    directory = os.listdir(directory_name)
+    has_header = False
+    rows = []
+    lesson = 2
+    with open(combined_name, 'w', newline='', encoding='utf8') as f:
+        writer = csv.writer(f)
+        for file_name in directory:
+            if file_name != combined_name:
+                with open(f'{directory_name}/{file_name}', encoding='utf8') as data:
+                    reader = csv.reader(data, delimiter=',')
+                    if not has_header:
+                        has_header = True
+                    else:
+                        headers = next(reader, None)
+                    for row in reader:
+                        rows.append([str(lesson)] + row)
+                    lesson += 1
+        rows[0].insert(0, '\ufeffLesson')
+        writer.writerows(rows)
 
 
 def read_lesson(lesson_num):
@@ -42,12 +69,14 @@ if __name__ == '__main__':
     os.system('chcp 936')
     command = None
     lesson = None
-    lessons_cache = {}
     while command != EXIT:
         while command is None:
-            command = input(f'Enter a lesson number (>=2) or \'e\' to exit: ')
+            command = input(f'Enter a lesson number (>=2) or \'c\' to combine vocab files or \'e\' to exit: ')
             if command == EXIT:
                 exit()
+            elif command == COMBINE:
+                combine()
+                command = None
             else:
                 try:
                     command = lesson_num = int(command)
