@@ -39,7 +39,7 @@ def combine():
                     for row in reader:
                         rows.append([str(lesson)] + row)
                     lesson += 1
-        rows[0].insert(0, '\ufeffLesson')
+        rows[0][0] = '\ufeffLesson'
         writer.writerows(rows)
 
 
